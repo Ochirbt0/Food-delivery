@@ -166,7 +166,7 @@ app.use("/food-order", foodOrderRouter);
 //   res.status(200).send({ message: "list created successfully", data: user });
 // });
 
-app.listen(8000, async () => {
+app.listen(10000, async () => {
   await connectToMongoDB();
   console.log(`Server is running on ${8000}`);
 });
