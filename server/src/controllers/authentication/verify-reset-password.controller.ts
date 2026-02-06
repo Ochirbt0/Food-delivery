@@ -43,4 +43,4 @@ export const verifyOTP = async (req: Request, res: Response) => {
     res.status(501).send({ message: "error", error: error });
   }
 };
-// otp irehgui bn
+// otp shalgahgu bn

@@ -11,11 +11,11 @@ const port = 8000;
 const app: Application = express();
 app.use(cors());
 app.use(express.json());
-// app.use("/food", foodRouter);
-// app.use("/", foodCartRouter);
-// app.use("/auth", userRouter);
-// app.use("/food-category", foodCategoryRouter);
-// app.use("/food-order", foodOrderRouter);
+app.use("/food", foodRouter);
+app.use("/", foodCartRouter);
+app.use("/auth", userRouter);
+app.use("/food-category", foodCategoryRouter);
+app.use("/food-order", foodOrderRouter);
 // app.post("/backEndSecond", async (req: Request, res: Response) => {
 //   res.status(200).send(req.body);
 // });
