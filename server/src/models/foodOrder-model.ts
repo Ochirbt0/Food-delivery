@@ -37,9 +37,4 @@ export const FoodOrderSchema = new Schema<FoodOrderType>(
 );
 export const FoodOrderModel: Model<FoodOrderType> =
   models["FoodOrder"] || mongoose.model("FoodOrder", FoodOrderSchema);
-
-
-
-
-  // ANAND OCHIROO TUGSUU TOK ZODIAC
-  // TEMKA MENDEE UCHKA UUNUU BILGUUNEE
+  

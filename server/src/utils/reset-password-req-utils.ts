@@ -1,26 +1,28 @@
 import nodemailer from "nodemailer";
 import { configDotenv } from "dotenv";
-import { OTP } from "otplib";
+import { Resend } from "resend";
 
 configDotenv();
 
-const { AUTH_EMAIL, AUTH_PASS } = process.env;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const transport = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: AUTH_EMAIL,
-    pass: AUTH_PASS,
-  },
-});
+// const { AUTH_EMAIL, AUTH_PASS } = process.env;
+
+// const transport = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: AUTH_EMAIL,
+//     pass: AUTH_PASS,
+//   },
+// });
 
 export const passSolihHuselt = async (
   receiver: string,
   passResetLink: string,
   otp: string,
 ) => {
-  await transport.sendMail({
-    from: `"Food delivery" ${AUTH_EMAIL}`,
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
     to: receiver,
     subject: "forgot password? click here",
     html: `

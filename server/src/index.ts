@@ -7,7 +7,7 @@ import { foodCartRouter, foodCategoryRouter, userRouter } from "./routers";
 import { foodOrderRouter } from "./routers/foodOrder.router";
 
 configDotenv();
-const port = 8000;
+const port = 10000;
 const app: Application = express();
 app.use(cors());
 app.use(express.json());
@@ -166,6 +166,6 @@ app.use("/food-order", foodOrderRouter);
 //   res.status(200).send({ message: "list created successfully", data: user });
 // });
 connectToMongoDB();
-app.listen(10000, async () => {
-  console.log(`Server is running on ${10000}`);
+app.listen(port, async () => {
+  console.log(`Server is running on ${port}`);
 });
