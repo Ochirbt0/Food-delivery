@@ -6,14 +6,20 @@ import { UserModel } from "../../models";
 export const verifyOTP = async (req: Request, res: Response) => {
   try {
     const { otp } = req.body;
-    const { token } = req.headers;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("Invalid token");
+    }
+    const token = authHeader.split(" ")[1];
     const verifyDecoded = jwt.verify(
       String(token),
       process.env.JWT_SECRET as string,
     ) as JwtPayload;
+    console.log(verifyDecoded);
+    const { _id } = verifyDecoded;
+    console.log(_id);
+    const user = await UserModel.findOne({ _id });
 
-    const { email } = verifyDecoded;
-    const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(404).send({ message: "user oldsongui" });
     }
@@ -24,16 +30,15 @@ export const verifyOTP = async (req: Request, res: Response) => {
       return res.status(404).send({ message: "OTP oldsongui" });
     }
 
-    console.log(shalgahOTP);
-
-    // const id = shalgahOTP.userId;
     console.log(otp, shalgahOTP.otp);
     if (otp !== shalgahOTP.otp) {
       return res.status(200).send({ message: "failed" });
     } else {
-      const tokenThird = jwt.sign({ id: user._id }, "nuuts", {
+      const tokenThird = jwt.sign({ id: userId }, "secretToken", {
         expiresIn: "1d",
       });
+
+      console.log({ tokenThird });
       res
         .status(200)
         .redirect(`http://localhost:3000/reset-password?token=${tokenThird}`);
@@ -44,3 +49,4 @@ export const verifyOTP = async (req: Request, res: Response) => {
   }
 };
 // otp shalgahgu bn
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTI3ZmNkNzNkZjRlNDBkMGFiZTgzNCIsImlhdCI6MTc3MTIxMDMwOSwiZXhwIjoxNzcxMjk2NzA5fQ.fqVBnqvMbmBYwJuWzKk7dwRfmKMvEZiwRZ7if-32F5E

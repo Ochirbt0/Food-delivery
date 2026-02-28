@@ -34,8 +34,9 @@ export const authentication = async (
       res.status(200).send({ message: "invalid token 4" });
       return;
     }
-    // console.log(verifiedToken);
+
     req.body.user = existingUser;
+
     next();
   } catch (error) {
     res.status(500).send({ message: error });

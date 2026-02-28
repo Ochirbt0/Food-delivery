@@ -6,15 +6,15 @@ import bcrypt from "bcrypt";
 // new password -> user iiin password update hiine.
 export const newPassword = async (req: Request, res: Response) => {
   try {
-    const { token } = req.headers;
+    const token = req.headers.authorization;
     const { password } = req.body;
     const hashed = await bcrypt.hash(password, 10);
+    const decoded = jwt.decode(String(token?.split(" ")[1])) as JwtPayload;
 
-    const decoded = jwt.decode(String(token)) as JwtPayload;
-    const { email } = decoded;
+    const { id } = decoded;
 
-    const updateduser = await UserModel.findOneAndUpdate(
-      { email },
+    const updateduser = await UserModel.findByIdAndUpdate(
+      id,
       {
         password: hashed,
       },

@@ -5,7 +5,7 @@ import { FoodCategoryModel } from "../../models";
 
 export const deleteFoodCategory = async (req: Request, res: Response) => {
   try {
-    const { foodCategoryId } = req.query;
+    const { foodCategoryId } = req.params;
 
     const deletedFoodCategory =
       await FoodCategoryModel.findByIdAndDelete(foodCategoryId);

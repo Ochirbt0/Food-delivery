@@ -4,7 +4,7 @@ import { FoodCategoryModel } from "../../models";
 export const postFoodCategory = async (req: Request, res: Response) => {
   try {
     const { categoryName } = req.body;
-    console.log(categoryName);
+
     const categoryNer = await FoodCategoryModel.findOne({ categoryName });
     if (categoryNer) {
       return res.status(400).send({ message: "Iim category bna" });
@@ -17,6 +17,6 @@ export const postFoodCategory = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 };

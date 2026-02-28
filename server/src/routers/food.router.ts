@@ -4,6 +4,7 @@ import { deleteFoodList } from "../controllers/foods/delete-food.controller";
 import { getFoodById } from "../controllers/foods/get-food-by-id.controller";
 import { authentication, authorization } from "../middlewares";
 import { UserModel, UserRole } from "../models";
+import { buhHoolAvah } from "../controllers/foods/get-all-food.controller";
 
 export const foodRouter = Router();
 // userRouter.route("/food-list").post(createNewFoodList);
@@ -13,6 +14,7 @@ foodRouter.post(
   authorization(UserRole.ADMIN),
   createNewFoodList,
 );
+foodRouter.get("/all", buhHoolAvah);
 foodRouter.get("/:foodId", getFoodById);
 foodRouter.delete("/:foodId", deleteFoodList);
 foodRouter.patch("/:foodId", updateFoodList);

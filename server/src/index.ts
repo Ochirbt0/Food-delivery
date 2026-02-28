@@ -3,7 +3,7 @@ import { configDotenv } from "dotenv";
 import express, { Application, Request, Response } from "express";
 import connectToMongoDB from "./mongodb";
 import { foodRouter } from "./routers/food.router";
-import { foodCartRouter, foodCategoryRouter, userRouter } from "./routers";
+import { foodCategoryRouter, userRouter } from "./routers";
 import { foodOrderRouter } from "./routers/foodOrder.router";
 
 configDotenv();
@@ -12,7 +12,6 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use("/food", foodRouter);
-app.use("/", foodCartRouter);
 app.use("/auth", userRouter);
 app.use("/food-category", foodCategoryRouter);
 app.use("/food-order", foodOrderRouter);

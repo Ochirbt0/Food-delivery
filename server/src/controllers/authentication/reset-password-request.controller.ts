@@ -15,9 +15,13 @@ export const resetPasswordRequest = async (req: Request, res: Response) => {
       return res.status(404).send({ message: "Hereglegch oldsongui" });
     }
 
-    const newToken = jwt.sign({ email }, process.env.JWT_SECRET as string, {
-      expiresIn: "1d",
-    });
+    const newToken = jwt.sign(
+      { _id: hereglegch._id },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "1d",
+      },
+    );
 
     const otp = otpGenerator.generate(6, {
       digits: true,
@@ -38,8 +42,7 @@ export const resetPasswordRequest = async (req: Request, res: Response) => {
     res
       .status(200)
       .redirect(`http://localhost:3000/verify-otp?token=${newToken}`);
-// end redirect hiih heregtei yu?
-
+    // end redirect hiih heregtei yu?
   } catch (error) {
     res.status(500).send({ message: "cannot reset password", error: error });
   }

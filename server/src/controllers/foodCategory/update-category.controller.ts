@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import { FoodModel } from "../../models/food.model";
+import { FoodCategoryModel } from "../../models";
 
 export const updateFoodCategoryByFoodOrderId = async (
   req: Request,
@@ -8,9 +8,9 @@ export const updateFoodCategoryByFoodOrderId = async (
 ) => {
   try {
     const categoryName = req.body.categoryName;
-    const { foodCategoryId } = req.query;
+    const { foodCategoryId } = req.params;
 
-    const updatedFoodCategory = await FoodModel.findByIdAndUpdate(
+    const updatedFoodCategory = await FoodCategoryModel.findByIdAndUpdate(
       foodCategoryId,
       {
         categoryName,

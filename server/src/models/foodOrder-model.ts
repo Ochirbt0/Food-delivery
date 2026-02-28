@@ -15,7 +15,7 @@ type FoodOrderType = {
 
 const FoodOrderItem = new Schema(
   {
-    food: { type: Schema.Types.ObjectId, ref: "Food", required: true },
+    food: { type: Schema.Types.ObjectId, ref: "Foods", required: true },
     quantity: { type: Number, required: true },
   },
   { _id: false },
@@ -23,8 +23,8 @@ const FoodOrderItem = new Schema(
 
 export const FoodOrderSchema = new Schema<FoodOrderType>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    totalPrice: { type: Number, required: true },
+    user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    totalPrice: { type: Number },
     foodOrderItems: [FoodOrderItem],
     status: {
       type: String,
@@ -37,4 +37,3 @@ export const FoodOrderSchema = new Schema<FoodOrderType>(
 );
 export const FoodOrderModel: Model<FoodOrderType> =
   models["FoodOrder"] || mongoose.model("FoodOrder", FoodOrderSchema);
-  

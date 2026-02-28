@@ -30,7 +30,7 @@ export const UserSchema = new Schema<User>(
       default: UserRole.USER,
       required: true,
     },
-    orderedFoods: [{ type: Schema.Types.ObjectId, ref: "Food" }],
+    orderedFoods: [{ type: Schema.Types.ObjectId, ref: "Foods" }],
     ttl: { type: Date },
     isVerified: { type: Boolean, default: false },
   },

@@ -1,33 +1,37 @@
-// import { Request, Response } from "express";
-// import { FoodOrderModel } from "../../models";
-// import mongoose from "mongoose";
+import { Request, Response } from "express";
+import { FoodModel, FoodOrderModel } from "../../models";
+import mongoose from "mongoose";
 
-// export const postFoodOrder = async (req: Request, res: Response) => {
-//   try {
-//     const { user, totalPrice, foodOrderItems, status } = req.body;
+export const postFoodOrder = async (req: Request, res: Response) => {
+  try {
+    const { user, orderItems } = req.body;
 
-//     // user -> token
+    const allFoods = Promise.all(
+      orderItems.map(
+        async ({ food, quantity }: { food: String; quantity: String }) => {
+          const foundFood = await FoodModel.findById(food);
 
-//     jwt.decoced;
+          return Number(foundFood?.price) * Number(quantity);
+        },
+      ),
+    );
 
-    
-//     const postFoodOrderAPI = await FoodOrderModel.create({
-//       user: userId,
-//       totalPrice,
-//       foodOrderItems,
-//       status,
-//     });
+    const orderedItems = await allFoods;
 
-//     // if(!mongoose.Types.ObjectId.isValid){
+    const total = orderedItems.reduce((acc, item) => acc + item, 0);
 
-//     // }
+    const postFoodOrderAPI = await FoodOrderModel.create({
+      user,
+      totalPrice: Number(total),
+      foodOrderItems: orderItems,
+    });
 
-//     res.status(200).send({
-//       message: "Food category created successfully",
-//       data: postFoodOrderAPI,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(200).send(error);
-//   }
-// };
+    res.status(200).send({
+      message: "Food order created successfully",
+      data: postFoodOrderAPI,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+};

@@ -18,11 +18,4 @@ userRouter.post("/reset-password-req", resetPasswordRequest);
 userRouter.post("/verify-reset-password-request", verifyOTP);
 userRouter.post("/reset-password", newPassword);
 
-// userRouter.post(
-//   "/get-user-by-post-request/:groupId/:userId",
-//   getUserByIdAndPost,
-// );
-// userRouter.get("/get-user-by-get-request", getUserByIdAndGet);
-// userRouter.delete("/delete-by-id", deleteNewUser);
 
-// userRouter.route("/user").post(createNewUser).delete(deleteNewUser);
